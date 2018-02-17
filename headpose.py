@@ -27,6 +27,7 @@ width = 46
 height = 46
 epochs = 500
 verbose = 1
+store = 0
 model = m.model4(width, height)
 
 [o_x1, o_y1, o_x2, o_y2] = pr.getData(width, height)
@@ -53,5 +54,11 @@ y2 = o_y1
 normalize_set(x2, avg, std)
 
 [err1_1, err2_1, score] = test_model(model, x1, y1, x2, y2, epochs, verbose=verbose)
+
+if store == 1:
+    nombre = input("Introduzca el nombre del modelo a guardar: ")
+    path = "Modelos/" + nombre
+    model.save(path)
+
 print("MSE: %f" % score)
 print("Error medio:\nTilt: %f Pan: %f\n" % (err1_1, err2_1))
