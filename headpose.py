@@ -20,8 +20,8 @@ sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
 K.set_session(sess)
 
 import models_correct as m
-import preprocess as pr
-from others import shuffle_arrays, rerange, test_model, normalize_set
+import preprocess2 as pr2
+from others import shuffle_arrays, test_model, normalize_set
 
 width = 46
 height = 46
@@ -30,7 +30,7 @@ verbose = 1
 store = 0
 model = m.model4(width, height)
 
-[o_x1, o_y1, o_x2, o_y2] = pr.getData(width, height)
+[o_x1, o_y1, o_x2, o_y2] = pr2.getData2(width, height)
 
 shuffle_arrays(o_x1, o_y1, seed)
 shuffle_arrays(o_x2, o_y2, seed)
