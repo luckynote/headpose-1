@@ -28,7 +28,7 @@ def getFace2(img, alter = 0):
 
     return pic
 
-def getData2(width, height):
+def getData2(width, height, numvars):
     face_size = width * height
 
     serie1 = np.zeros((13950, face_size))
@@ -53,7 +53,7 @@ def getData2(width, height):
 
             # Obtener variaciones de la imagen.
 
-            for i in range(0, 5):
+            for i in range(0, numvars):
 
                 pic = getFace2(img, i)
                 pic_eq = cv2.equalizeHist(pic)
