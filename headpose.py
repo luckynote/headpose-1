@@ -19,18 +19,19 @@ tf.set_random_seed(seed)
 sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
 K.set_session(sess)
 
-import models_correct as m
+import models64 as m
 import preprocess2 as pr2
 from others import shuffle_arrays, test_model, normalize_set
 
-width = 46
-height = 46
+width = 64
+height = 64
 epochs = 500
 verbose = 1
+numvars = 5
 store = 0
-model = m.model4(width, height)
+model = m.model2(width, height)
 
-[o_x1, o_y1, o_x2, o_y2] = pr2.getData2(width, height)
+[o_x1, o_y1, o_x2, o_y2] = pr2.getData2(width, height, numvars)
 
 shuffle_arrays(o_x1, o_y1, seed)
 shuffle_arrays(o_x2, o_y2, seed)
