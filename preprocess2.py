@@ -31,7 +31,7 @@ def getFace2(img, alter = 0):
 def getData2(width, height, numvars):
 
     face_size = width * height
-    vect_size = 13950 * numvars * 2
+    vect_size = 1395 * numvars * 2
 
     serie1 = np.zeros((vect_size, face_size))
     serie2 = np.zeros((vect_size, face_size))
