@@ -29,12 +29,14 @@ def getFace2(img, alter = 0):
     return pic
 
 def getData2(width, height, numvars):
-    face_size = width * height
 
-    serie1 = np.zeros((13950, face_size))
-    serie2 = np.zeros((13950, face_size))
-    values1 = np.zeros((13950, 2))
-    values2 = np.zeros((13950, 2))
+    face_size = width * height
+    vect_size = 13950 * numvars * 2
+
+    serie1 = np.zeros((vect_size, face_size))
+    serie2 = np.zeros((vect_size, face_size))
+    values1 = np.zeros((vect_size, 2))
+    values2 = np.zeros((vect_size, 2))
 
     i1 = 0
     i2 = 0
