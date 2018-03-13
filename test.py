@@ -8,10 +8,10 @@ from math import sin, cos, radians
 def main():
 
     # Definir variables
-    width = 46
-    height = 46
-    avg = 0.48315518468433094
-    std = 0.17873064673404526
+    width = 64
+    height = 64
+    avg = 0.503276
+    std = 0.247237
     face_size = width * height
     maxlen = 50
 
