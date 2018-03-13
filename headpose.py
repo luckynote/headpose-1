@@ -25,11 +25,12 @@ from others import shuffle_arrays, test_model, normalize_set
 
 width = 64
 height = 64
-epochs = 500
+epochs = 1500
 verbose = 1
-numvars = 5
-store = 0
+numvars = 10
 model = m.model2(width, height)
+
+startW = model.get_weights()
 
 [o_x1, o_y1, o_x2, o_y2] = pr2.getData2(width, height, numvars)
 
@@ -39,27 +40,27 @@ shuffle_arrays(o_x2, o_y2, seed)
 o_x1 = np.reshape(o_x1, (o_x1.shape[0], height, width, 1))
 o_x2 = np.reshape(o_x2, (o_x2.shape[0], height, width, 1))
 
-o_y1[:,0] = o_y1[:,0]/90
-o_y1[:,1] = o_y1[:,1]/90
+o_y1[:,0] = o_y1[:,0] / 90
+o_y1[:,1] = o_y1[:,1] / 90
 
-o_y2[:,0] = o_y2[:,0]/90
-o_y2[:,1] = o_y2[:,1]/90
+o_y2[:,0] = o_y2[:,0] / 90
+o_y2[:,1] = o_y2[:,1] / 90
 
-x1 = o_x2
-x2 = o_x1
+x1 = o_x1
+x2 = o_x2
 
-y1 = o_y2
-y2 = o_y1
+y1 = o_y1
+y2 = o_y2
 
 [avg, std] = normalize_set(x1)
+print("Avg: %f\nStd: %f" % (avg, std))
 normalize_set(x2, avg, std)
 
-[err1_1, err2_1, score] = test_model(model, x1, y1, x2, y2, epochs, verbose=verbose)
+nombre = input("Introduzca el nombre del modelo a guardar (sin extension): ")
 
-if store == 1:
-    nombre = input("Introduzca el nombre del modelo a guardar: ")
-    path = "Modelos/" + nombre
-    model.save(path)
-
-print("MSE: %f" % score)
-print("Error medio:\nTilt: %f Pan: %f\n" % (err1_1, err2_1))
+for i in range(5, 30, 5):
+    print("%d variaciones por imagen..." % i)
+    [err1, err2, score] = test_model(model, x1, y1, x2, y2, epochs, nombre + "_" + str(i), verbose=verbose)
+    print("MSE: %f" % score)
+    print("Error medio:\nTilt: %f Pan: %f\n" % (err1, err2))
+    model.set_weights(startW)
