@@ -6,13 +6,13 @@ from math import sin, radians
 
 # Declarar valores
 
-width = 40
-height = 40
-avg = 0.48315518468433094
-std = 0.17873064673404526
+width = 64
+height = 64
+avg = 0.503276
+std = 0.247237
 face_size = width * height
 maxlen = 200
-model = load_model("Modelos/modelo1.h5")
+model = load_model()
 
 # Detectar caras
 
