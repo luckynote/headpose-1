@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from keras.callbacks import ModelCheckpoint
 import utils
 
 def plot_weights(weights, name, path):
@@ -97,9 +98,22 @@ def print_history(losses, val_losses):
     for i in range(0, len(losses)):
         print(losses[i], val_losses[i])
 
-def test_model(model, x1, y1, x2, y2, epochs, verbose = 1):
+def test_model(model, x1, y1, x2, y2, epochs, name, verbose = 1):
 
-    model.fit(x1, y1, batch_size = 100, epochs = epochs, verbose = verbose)
+    save_best = ModelCheckpoint("Modelos/" + name + ".h5py", monitor='val_loss', verbose=0, save_best_only=True, save_weights_only=False, mode='auto', period=1)
+
+    history = model.fit(x1, y1, batch_size = 100, epochs = epochs, validation_split=0.25, callbacks=[save_best], verbose = verbose)
+
+    # Representar error por epoch
+
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.savefig("Graficas/" + name + ".png")
+
     score = model.evaluate(x2, y2)
     pred = model.predict(x2)
     real = y2
